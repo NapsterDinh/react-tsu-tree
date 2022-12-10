@@ -10,7 +10,6 @@ type TValidateInput = {
   minLength?: number;
   messageMinLength?: string;
   messageNotContainSpecialCharacter?: string;
-  messageValidateOnlyContainNumber?: string;
 };
 export const validateInput = ({
   messageRequired,
@@ -20,7 +19,6 @@ export const validateInput = ({
   minLength,
   messageMinLength,
   messageNotContainSpecialCharacter,
-  messageValidateOnlyContainNumber,
 }: TValidateInput) => {
   return {
     validator(_: any, value: any) {
@@ -31,11 +29,6 @@ export const validateInput = ({
         : value;
       if (messageRequired && !newValue) {
         return Promise.reject(messageRequired);
-      } else if (
-        messageValidateOnlyContainNumber &&
-        !newValue.toString().match("[0-9]+")
-      ) {
-        return Promise.reject(messageValidateOnlyContainNumber);
       } else if (
         messageNotContainSpecialCharacter &&
         checkContainsSpecialCharacter(newValue)

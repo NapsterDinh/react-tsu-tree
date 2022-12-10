@@ -3,19 +3,19 @@ export const usePermissions = () => {
     ? JSON.parse(localStorage.getItem("user"))
     : null;
   const checkPermission = (permissions) => {
-    // if (!permissions || !user || !user?.permissions) {
-    //   return false;
-    // }
-    // let match = false;
-    // const permissionsArr = Array.isArray(permissions)
-    //   ? permissions
-    //   : [permissions];
-    // if (permissionsArr.length === 0) {
-    //   match = true;
-    // } else {
-    //   match = permissionsArr.some((p) => user.permissions.includes(p));
-    // }
-    return true;
+    if (!permissions || !user) {
+      return false;
+    }
+    let match = false;
+    const permissionsArr = Array.isArray(permissions)
+      ? permissions
+      : [permissions];
+    if (permissionsArr.length === 0) {
+      match = true;
+    } else {
+      match = permissionsArr.some((p) => user.permissions.includes(p));
+    }
+    return match;
   };
 
   const checkUserLogin = () => {

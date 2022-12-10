@@ -13,7 +13,7 @@ import {
   AiOutlineFileText,
   AiOutlineHome,
   AiOutlineSetting,
-  AiOutlineSolution,
+  AiOutlineSolution
 } from "react-icons/ai";
 import { Outlet, useLocation } from "react-router-dom";
 import { routes } from "routes";
@@ -70,23 +70,22 @@ const Layout = () => {
       <AiOutlineHome />
     ),
     getItem(t("common:common.management"), "menuItem2", <AiOutlineSetting />, [
+      checkPermission(["ROLE.VIEW"]) &&
+        getItem(
+          t("common:role_management.name"),
+          routes.RoleManagement.path[0],
+          <UserRoleIcon />
+        ),
       checkPermission(["USER.VIEW"]) &&
         getItem(
-          t("common:common.user_management"),
+          t("common:user_management.name"),
           routes.UserManagement.path[0],
           <UserIcon />
         ),
-      checkPermission(["ROLE.VIEW"]) &&
-        getItem(
-          t("common:common.product_management"),
-          routes.ProductManagement.path[0],
-          <UserRoleIcon />
-        ),
-
       checkPermission(["DOMAIN.VIEW"]) &&
         getItem(
-          t("common:common.order_management"),
-          routes.OrderManagement.path[0],
+          t("common:domain_management.name"),
+          routes.DomainManagement.path[0],
           <AiOutlineCluster />
         ),
       // checkPermission(["TEST_TYPE.VIEW"]) &&
@@ -107,24 +106,24 @@ const Layout = () => {
       //     routes.FunctionGroup.path[0],
       //     <AiOutlineApartment />
       //   ),
-      // checkPermission(["REQUEST.VIEW"]) &&
-      //   getItem(
-      //     t("common:request_management.name"),
-      //     routes.RequestManagement.path[0],
-      //     <AiOutlineSolution />
-      //   ),
-      // checkPermission(["VIEWPOINT.VIEW"]) &&
-      //   getItem(
-      //     t("common:viewpoint_collection.name"),
-      //     routes.ViewpointCollection.path[0],
-      //     <AiOutlineFileText />
-      //   ),
-      // checkPermission(["PRODUCT.VIEW"]) &&
-      //   getItem(
-      //     t("common:product.name"),
-      //     routes.ProductManagement.path[0],
-      //     <ProductIcon />
-      //   ),
+      checkPermission(["REQUEST.VIEW"]) &&
+        getItem(
+          t("common:request_management.name"),
+          routes.RequestManagement.path[0],
+          <AiOutlineSolution />
+        ),
+      checkPermission(["VIEWPOINT.VIEW"]) &&
+        getItem(
+          t("common:viewpoint_collection.name"),
+          routes.ViewpointCollection.path[0],
+          <AiOutlineFileText />
+        ),
+      checkPermission(["PRODUCT.VIEW"]) &&
+        getItem(
+          t("common:product.name"),
+          routes.ProductManagement.path[0],
+          <ProductIcon />
+        ),
     ]),
   ];
   return (

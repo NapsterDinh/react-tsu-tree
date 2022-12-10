@@ -4,14 +4,14 @@ import { axiosInstance } from "./axiosInstance";
 const userApi = {
   getAllUser: async (payload, signal?): Promise<AxiosResponse<any>> => {
     if (!payload.search) {
-      const url = "/users/getallUser";
+      const url = `/User?PageSize=${payload.PageSize}&PageNumber=${payload.PageNumber}`;
       const response = axiosInstance.get<any>(
         url,
         signal && { signal: signal }
       );
       return response;
     } else {
-      const url = `/users/getallUser?searchText=${payload.search}`;
+      const url = `/User${payload.search}&PageSize=${payload.PageSize}&PageNumber=${payload.PageNumber}`;
       const response = axiosInstance.get<any>(
         url,
         signal && { signal: signal }
@@ -19,24 +19,9 @@ const userApi = {
       return response;
     }
   },
-  deleteUser: async (payload: any): Promise<AxiosResponse<any>> => {
-    const url = `/users/deleteUser/${payload}`;
-    const response = axiosInstance.delete<any>(url);
-    return response;
-  },
-  createUser: async (payload: any): Promise<AxiosResponse<any>> => {
-    const url = "/users/addUser";
-    const response = axiosInstance.post<any>(url, payload);
-    return response;
-  },
-  updateUser: async (payload: any): Promise<AxiosResponse<any>> => {
-    const url = `/users/updateUser/${payload.id}`;
-    const response = axiosInstance.put<any>(url, payload);
-    return response;
-  },
   updateRole: async (payload: any): Promise<AxiosResponse<any>> => {
-    const url = `/users/updateRoleUser/${payload.id}`;
-    const response = axiosInstance.put<any>(url, { isAdmin: payload.isAdmin });
+    const url = `/User/UpdateUser/${payload.id}`;
+    const response = axiosInstance.put<any>(url, { role: payload.role });
     return response;
   },
   updateStatus: async (payload: any): Promise<AxiosResponse<any>> => {
@@ -54,11 +39,6 @@ const userApi = {
   },
   getOwnerFilter: async () => {
     const url = `/User?PageSize=${200}&PageNumber=1`;
-    const response = axiosInstance.get<any>(url);
-    return response;
-  },
-  getChartInfo: async () => {
-    const url = "/users/statsUser";
     const response = axiosInstance.get<any>(url);
     return response;
   },

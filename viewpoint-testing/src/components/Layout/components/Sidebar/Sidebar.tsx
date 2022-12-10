@@ -1,6 +1,6 @@
 import { rootState } from "@models/type";
 import { MenuItem } from "@utils/componentUtis";
-import IVSLogoDark from "assets/images/logo_shop.png";
+import IVSLogoDark from "assets/images/logo_ivs_dark.png";
 
 import { Menu } from "antd";
 import Sider from "antd/lib/layout/Sider";
@@ -41,6 +41,9 @@ const Sidebar = ({ collapsed, items, selectedKey, setSelectedKey }: IProps) => {
               src={IVSLogoDark}
               className={`logo__img ${collapsed ? "collapsed" : ""}`}
             />
+            <div className={`logo__title ${collapsed ? "collapsed" : ""}`}>
+              AkaVIP
+            </div>
           </div>
         </Link>
         <Menu

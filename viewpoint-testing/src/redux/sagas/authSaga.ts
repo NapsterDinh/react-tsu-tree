@@ -15,18 +15,16 @@ export function* loginWorker(action: LoginType): any {
     const response = yield call<any>(authAPI.login, {
       payload: action.payload,
     });
-    if (response && response?.success) {
+    if (response.isSucceeded) {
       yield put(authActions.loginSuccess(response.data));
       if (action.payload?.onSuccess) {
         yield call(action.payload.onSuccess);
-        // getCurrentUserWorker(action);
+        getCurrentUserWorker(action);
       }
     }
   } catch (error: any) {
-    yield put(authActions.loginFailure(error.response.data.msg));
+    yield put(authActions.loginFailure(error));
     // TODO: handle callback | onFailure
-  } finally {
-    yield put(authActions.closeLoading({}));
   }
 }
 
@@ -46,13 +44,15 @@ export function* getCurrentUserWorker(action) {
     } else {
       let newPermission = [];
       if (user?.data?.permissions) {
-        newPermission = [...user?.data?.permissions].map((item) => item?.name);
+        newPermission = [...user?.data?.permissions].map(
+          (item) => item?.name
+        );
       }
       localStorage.setItem(
         "user",
         JSON.stringify({
           ...user.data,
-          permissions: [],
+          permissions: newPermission,
         })
       );
 

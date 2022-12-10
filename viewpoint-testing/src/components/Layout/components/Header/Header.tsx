@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   AiOutlineLogout,
   AiOutlineMenuFold,
-  AiOutlineMenuUnfold,
+  AiOutlineMenuUnfold
 } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ import {
   ButtonIcon,
   NavbarContainer,
   ProfileMenu,
-  Wrapper,
+  Wrapper
 } from "./HeaderStyled";
 
 interface IProps {
@@ -137,15 +137,11 @@ const Header = ({ onClick, collapsed }: IProps) => {
             >
               <AvatarInfo>
                 <Avatar src={<img src={AvatarPlaceholder} />} size="small" />
-                <Title level={5}>{currentUser?.name}</Title>
+                <Title level={5}>{currentUser?.account}</Title>
                 <span
                   style={{ color: "var(--clr-text)", marginLeft: "0.25rem" }}
                 >
-                  (
-                  {currentUser?.isAdmin
-                    ? t("common:common.admin")
-                    : t("common:common.guest")}
-                  )
+                  ({currentUser?.role})
                 </span>
               </AvatarInfo>
             </Dropdown>

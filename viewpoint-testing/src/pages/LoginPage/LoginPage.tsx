@@ -41,20 +41,25 @@ const LoginPage: React.FC = (): JSX.Element => {
 
   // function handle login
   const onFinishLogin = (values) => {
-    dispatch(
-      authActions.login({
-        phone: values.username.trim(),
-        password: values.password.trim(),
-        onSuccess: () => {
-          // navigate("/", { replace: true });
-          // dispatch(
-          //   authActions.getCurrentUser({
-          //     onSuccess: () => navigate("/", { replace: true }),
-          //   })
-          // );
-        },
-      })
-    );
+    try {
+      dispatch(
+        authActions.login({
+          username: values.username.trim(),
+          password: values.password.trim(),
+          onSuccess: () => {
+            dispatch(
+              authActions.getCurrentUser({
+                onSuccess: () => navigate("/", { replace: true }),
+              })
+            );
+          },
+        })
+      );
+    } catch (error) {
+      if (error?.code) {
+        showErrorNotification(t(`responseMessage:${error?.code}`));
+      }
+    }
   };
 
   // function handle failed login
@@ -119,7 +124,7 @@ const LoginPage: React.FC = (): JSX.Element => {
                   style={{ marginBottom: "0px", marginTop: "-20px" }}
                   className="color-red"
                 >
-                  {errorLogin}
+                  {t(`responseMessage:${errorLogin}`)}
                 </p>
               )}
               <Form.Item

@@ -19,10 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     color: var(--clr-text);
     font-weight: 500;
-    .chartBox{
-      width: 100%!important;
-      height: 500px!important;
-    }
     .ant-back-top
     {
       right: 50px;
@@ -359,21 +355,17 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     /* input */
-    .ant-input, .ant-input-number, .ant-picker-input>input {
+    .ant-input {
       color: var(--clr-text) !important;
       font-weight: 500 !important;
       border-radius: 0.25rem;
     }
 
-    .ant-input::placeholder, .ant-input-number::placeholder {
+    .ant-input::placeholder {
       color: var(--clr-text-second);
     }
 
-    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
-    .ant-input-number-status-error:not(.ant-input-number-disabled):not(.ant-input-number-borderless).ant-input-number, .ant-input-number-status-error:not(.ant-input-number-disabled):not(.ant-input-number-borderless).ant-input-number:hover,
-    .ant-picker-input-status-error:not(.ant-picker-input-disabled):not(.ant-picker-input-borderless).ant-picker-input, .ant-picker-input-status-error:not(.ant-picker-input-disabled):not(.ant-picker-input-borderless).ant-picker-input:hover,
-    .ant-picker-status-error.ant-picker, .ant-picker-status-error.ant-picker:not([disabled]):hover
-    {
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
       background-color: var(--background-color-element);
     }
 
@@ -386,18 +378,10 @@ export const GlobalStyle = createGlobalStyle`
 
     .ant-input-affix-wrapper,
     .ant-input-group-addon,
-    .ant-input, .ant-input-number, .ant-picker {
+    .ant-input {
       background-color: var(--background-color-element);
       border-radius: var(--border-radius-element);
     }
-    .ant-input-number, .ant-picker{
-      width: 100%;
-    }
-    .ant-picker-input span svg
-    {
-      color: var(--clr-text-second);
-    }
-    
 
     .ant-input-prefix > .anticon > svg {
       color: var(--clr-text-second);

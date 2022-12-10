@@ -1,20 +1,19 @@
 import {
   CategoryManagement,
-  ClonedDetailRequest,
-  DetailProduct,
-  DetailViewpointCollection,
   DomainManagement,
-  FunctionGroupManagement,
-  HomePage,
   LoginPage,
-  RequestManagement,
+  ProductManagement,
   RoleManagement,
   TestTypeManagement,
   UserManagement,
   ViewpointCollection,
+  RequestManagement,
+  ClonedDetailRequest,
+  DetailProduct,
+  HomePage,
+  DetailViewpointCollection,
+  FunctionGroupManagement,
 } from "@pages";
-import OrderManagement from "@pages/OrderManagement/OrderManagement";
-import ProductManagementPhuc from "@pages/ProductManagementPhuc/ProductManagementPhuc";
 import { ROLE } from "@utils/constants";
 import { Route } from "react-router-dom";
 
@@ -66,13 +65,13 @@ export const routes = {
     isRequired: true,
     keyRoute: "user_management",
   },
-  OrderManagement: {
-    path: ["/order-management"],
+  RoleManagement: {
+    path: ["/role-management"],
     index: false,
-    element: <OrderManagement />,
+    element: <RoleManagement />,
     permissions: ["ROLE.VIEW"],
     isRequired: true,
-    keyRoute: "order-management",
+    keyRoute: "role_management",
   },
   ViewpointCollection: {
     path: ["/viewpoint-management"],
@@ -93,7 +92,7 @@ export const routes = {
   ProductManagement: {
     path: ["/product-management"],
     index: false,
-    element: <ProductManagementPhuc />,
+    element: <ProductManagement />,
     permissions: ["PRODUCT.VIEW"],
     isRequired: true,
     keyRoute: "product_management",

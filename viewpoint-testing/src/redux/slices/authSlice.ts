@@ -1,6 +1,6 @@
-import { stateAuthType } from "@models/type";
 import { createSlice } from "@reduxjs/toolkit";
 import { ROLE } from "@utils/constants";
+import { stateAuthType } from "@models/type";
 
 const initialState: stateAuthType = {
   loginResponse: null,
@@ -24,9 +24,8 @@ const authSlice = createSlice({
     loginSuccess(state, action) {
       // TODO: reducer for login success action
       const loginResponse = action.payload;
-      localStorage.setItem("token", loginResponse.accessToken);
+      localStorage.setItem("token", loginResponse.access_token);
       localStorage.setItem("expiration", loginResponse.expire_in);
-      localStorage.setItem("user", JSON.stringify(loginResponse.user));
       if (
         !localStorage.getItem("dataLanguage") &&
         localStorage.getItem("i18nextLng")
@@ -48,12 +47,9 @@ const authSlice = createSlice({
       // TODO: reducer for login failure action
       state.loginSuccess = false;
       state.loginLoading = false;
-      state.errorLogin = action.payload;
+      state.errorLogin = action.payload.code;
     },
 
-    closeLoading(state, action) {
-      state.loginLoading = false;
-    },
     getCurrentUser(state, action) {
       // TODO: reducer for pending get current user action
       state.userLoading = true;

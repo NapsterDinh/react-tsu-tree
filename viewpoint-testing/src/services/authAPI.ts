@@ -1,4 +1,3 @@
-import { showErrorNotification } from "@utils/notificationUtils";
 import { AxiosResponse } from "axios";
 import { LoginType } from "../redux/sagas/authSaga";
 import { axiosInstance } from "./axiosInstance";
@@ -22,12 +21,12 @@ const authAPI = {
   login: async ({
     payload,
   }: LoginType): Promise<AxiosResponse<LoginResponse, any>> => {
-    const url = "/users/login";
+    const url = "/User/LoginLDAP";
     const response = axiosInstance.post<LoginResponse>(url, payload);
     return response;
   },
   getCurrentUser: async () => {
-    const url = "/users/get-current-user";
+    const url = "/User/get-current-user";
     const response = axiosInstance.get(url);
     return response;
   },

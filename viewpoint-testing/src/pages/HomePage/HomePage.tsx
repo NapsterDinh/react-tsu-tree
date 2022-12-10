@@ -1,12 +1,28 @@
-import CustomerChart from "@components/CustomChart/CustomChart";
-import type { Domain, User } from "@models/model";
-import { orderAPI } from "@services/orderAPI";
-import { productPhucAPI } from "@services/productPhucAPI";
-import { userApi } from "@services/userAPI";
+import { Icon } from "@components";
+import useAbortRequest from "@hooks/useAbortRequest";
+import type { Domain, IDataBodyFilterLog, User } from "@models/model";
+import HistoryAccessAPI from "@services/historyAccessAPI";
+import {
+  DEFAULT_PAGINATION,
+  ERR_CANCELED_RECEIVE_RESPONSE,
+  FILTER_TIME,
+  OWNED,
+  TYPE_FILTER_LOG,
+} from "@utils/constants";
+import { checkContainsSpecialCharacter } from "@utils/helpersUtils";
 import { showErrorNotification } from "@utils/notificationUtils";
-import { Typography } from "antd";
+import { Space, Tooltip, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  createSearchParams,
+  Link,
+  URLSearchParamsInit,
+  useSearchParams,
+} from "react-router-dom";
+import { routes } from "routes";
+import CommonAction from "./components/CommonAction/CommonAction";
+import TableHistoryAccess from "./components/TableHistoryAccess/TableHistoryAccess";
 import { Wrapper } from "./HomePage.Styled";
 const { Paragraph } = Typography;
 
@@ -30,62 +46,178 @@ export type HistoryAccessItem = {
 
 const HomePage = () => {
   const { t } = useTranslation(["common", "validate"]);
-  const [dataChartProduct, setDataChartProduct] = useState(null);
-  const [dataChartOrder, setDataChartOrder] = useState(null);
-  const [dataChartUser, setDataChartUser] = useState(null);
+  const [data, setData] = useState<HistoryAccessItem[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [pagination, setPagination] = useState({
+    ...DEFAULT_PAGINATION,
+    pageSize: searchParams.get("pageSize") ?? DEFAULT_PAGINATION.pageSize,
+    currentPage:
+      searchParams.get("currentPage") ?? DEFAULT_PAGINATION.currentPage,
+  });
+  const [loading, setLoading] = useState(false);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const [contentSearch, setContentSearch] = useState(
+    searchParams.get("text") ?? ""
+  );
+  const [filter, setFilter] = useState({
+    lastOpenedTimeRange:
+      searchParams.get("last_open") ?? FILTER_TIME.LAST_30_DAYS,
+    domain: searchParams.get("domain") ?? "",
+    type: searchParams.get("type") ?? TYPE_FILTER_LOG.DEFAULT,
+    owner: searchParams.get("owner") ?? OWNED.ALL_USER,
+  });
+  const [errorSearch, setErrorSearch] = useState("");
+  const { signal } = useAbortRequest();
 
-  const handleCallAPI = async () => {
+  const handleChangeFilter = (typeChange, value) => {
+    const tempVar = { ...filter };
+    switch (typeChange) {
+      case "Owner":
+        tempVar.owner = value;
+        break;
+      case "TypeFile":
+        tempVar.type = value;
+        break;
+      case "Domain":
+        tempVar.domain = value;
+        break;
+      case "LastOpenedTime":
+        tempVar.lastOpenedTimeRange = value as number;
+        break;
+      default:
+        tempVar.owner = value;
+        break;
+    }
+    setFilter(tempVar);
+  };
+
+  const handleCallAPI = async (paginationProps?) => {
     try {
-      const responseChart = await productPhucAPI.getChartInfo();
-      const responseChartUser = await userApi.getChartInfo();
-      const responseChartOrder = await orderAPI.getChartInfo();
-      responseChart.data.sort((a, b) => a._id - b._id);
-      const newDataChart = {
-        labels: responseChart.data.map((item) => item._id),
-        datasets: [
-          {
-            label: "Product count",
-            data: responseChart.data.map((item) => item.total),
-            borderColor: "#1890ff",
-            backgroundColor: "#0050b3",
-          },
-        ],
+      setLoading(true);
+      const dataBody: IDataBodyFilterLog = {
+        pageNumber: !paginationProps
+          ? pagination?.currentPage
+          : paginationProps?.currentPage,
+        pageSize: !paginationProps
+          ? pagination?.pageSize
+          : paginationProps?.pageSize,
+        type: 2,
       };
-      setDataChartProduct(newDataChart);
-      responseChartUser.data.sort((a, b) => a._id - b._id);
-      const newDataChartUser = {
-        labels: responseChartUser.data.map((item) => item._id),
-        datasets: [
-          {
-            label: "User count",
-            data: responseChartUser.data.map((item) => item.total),
-            borderColor: "#fadb14",
-            backgroundColor: "#ad8b00",
-          },
-        ],
-      };
-      setDataChartUser(newDataChartUser);
-      responseChartOrder.data.sort((a, b) => a._id - b._id);
-      const newDataChartOrder = {
-        labels: responseChartOrder.data.map((item) => item._id),
-        datasets: [
-          {
-            label: "Order count",
-            data: responseChartOrder.data.map((item) => item.total),
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-          },
-        ],
-      };
-      setDataChartOrder(newDataChartOrder);
+      const newSearchParams: URLSearchParamsInit = {};
+
+      if (contentSearch) {
+        setLoadingSearch(true);
+        dataBody.text = contentSearch.trim();
+        newSearchParams.text = contentSearch.trim();
+      }
+      if (filter.type !== null) {
+        dataBody.type = filter.type;
+        if (filter.type != TYPE_FILTER_LOG.DEFAULT) {
+          newSearchParams.type = filter.type.toString();
+        }
+      }
+      if (filter.owner !== null) {
+        dataBody.owner = filter.owner;
+        if (filter.owner != OWNED.ALL_USER) {
+          newSearchParams.owner = filter.owner.toString();
+        }
+      }
+      if (filter.lastOpenedTimeRange !== null) {
+        dataBody.time = filter.lastOpenedTimeRange;
+        if (filter.lastOpenedTimeRange !== FILTER_TIME.LAST_30_DAYS) {
+          newSearchParams.last_open = filter.lastOpenedTimeRange.toString();
+        }
+      }
+
+      const response = await HistoryAccessAPI.filterLogs(dataBody, signal);
+
+      setPagination({
+        ...response.metaData,
+      });
+
+      if (response.metaData.pageSize !== DEFAULT_PAGINATION.pageSize) {
+        newSearchParams.pageSize = response.metaData.pageSize;
+      }
+      if (response.metaData.currentPage !== DEFAULT_PAGINATION.currentPage) {
+        newSearchParams.currentPage = response.metaData.currentPage;
+      }
+      setSearchParams(createSearchParams(newSearchParams) ?? {});
+
+      const convertedData = response.data;
+      for (let index = 0; index < convertedData.length; index++) {
+        const element = convertedData[index];
+        const target =
+          element.type === TYPE_FILTER_LOG.PRODUCT
+            ? element?.product
+            : element?.viewPointCollections;
+        convertedData[index] = {
+          ...convertedData[index],
+          key: element.id,
+          updatedAt: element?.updatedAt
+            ? new Date(element?.createdAt).toLocaleString()
+            : new Date(element?.updatedAt).toLocaleString(),
+          lastOpenedTime: new Date(element?.lastOpenedTime).toLocaleString(),
+          name: (
+            <Tooltip title={JSON.parse(target?.detail)?.Name}>
+              <Space>
+                <Icon
+                  isProductIcon={
+                    element.type === TYPE_FILTER_LOG.PRODUCT ? true : false
+                  }
+                />
+                <Link
+                  to={
+                    element.type === TYPE_FILTER_LOG.PRODUCT
+                      ? `${routes.ProductManagement.path[0]}/${element?.commonId}`
+                      : `${routes.ViewpointCollection.path[0]}/${element?.commonId}`
+                  }
+                >
+                  {JSON.parse(target?.detail)?.Name}
+                </Link>
+              </Space>
+            </Tooltip>
+          ),
+          domainName:
+            target && target?.domains.length !== 0
+              ? target?.domains.map((e, i) => {
+                  if (i === target?.domains?.length - 1) {
+                    return JSON.parse(e?.detail)?.Name + " ";
+                  } else {
+                    return JSON.parse(e?.detail)?.Name + ", ";
+                  }
+                })
+              : "No Domain Name",
+          userName: target?.userCreate?.account,
+        };
+      }
+      setData(convertedData);
     } catch (error) {
-      showErrorNotification(error?.msg);
+      if (error?.code === ERR_CANCELED_RECEIVE_RESPONSE) {
+        return;
+      }
+      if (error?.code) {
+        showErrorNotification(t(`responseMessage:${error?.code}`));
+      }
+    } finally {
+      setLoading(false);
+      setLoadingSearch(false);
     }
   };
 
   useEffect(() => {
     handleCallAPI();
-  }, []);
+  }, [contentSearch, filter]);
+
+  const onSearch = (value) => {
+    if (checkContainsSpecialCharacter(value.trim())) {
+      setErrorSearch(
+        t("validate:common.search_can_not_contains_special_characters")
+      );
+    } else {
+      setErrorSearch("");
+      setContentSearch(value);
+    }
+  };
 
   return (
     <div>
@@ -97,64 +229,36 @@ const HomePage = () => {
             color: "var(--clr-text)",
           }}
         >
-          {t("common:common.dashboard")}
+          {t("common:dashboard:your_history_access")}
+        </div>
+        <div>
+          <Space>
+            <Icon />
+            <Paragraph className="note">{t("common:product.name")}</Paragraph>
+          </Space>
+          <Space>
+            <Icon isProductIcon={false} />
+            <Paragraph className="note">
+              {t("common:viewpoint_collection.name")}
+            </Paragraph>
+          </Space>
         </div>
       </Wrapper>
 
-      {dataChartOrder && (
-        <CustomerChart
-          title={t("common:common.order_management")}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                position: "top" as const,
-              },
-              title: {
-                display: true,
-                text: "Order Bar Chart",
-              },
-            },
-          }}
-          data={dataChartOrder}
-        />
-      )}
-      {dataChartProduct && (
-        <CustomerChart
-          title={t("common:common.product_management")}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                position: "top" as const,
-              },
-              title: {
-                display: true,
-                text: "Product Bar Chart",
-              },
-            },
-          }}
-          data={dataChartProduct}
-        />
-      )}
-      {dataChartUser && (
-        <CustomerChart
-          title={t("common:common.user_management")}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                position: "top" as const,
-              },
-              title: {
-                display: true,
-                text: "User Bar Chart",
-              },
-            },
-          }}
-          data={dataChartUser}
-        />
-      )}
+      <CommonAction
+        errorSearch={errorSearch}
+        onSearch={onSearch}
+        loading={loadingSearch}
+        filter={filter}
+        handleChangeFilter={handleChangeFilter}
+      />
+      <TableHistoryAccess
+        data={data}
+        loading={loading}
+        pagination={pagination}
+        setPagination={setPagination}
+        handleCallAPI={handleCallAPI}
+      />
     </div>
   );
 };

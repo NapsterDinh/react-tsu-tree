@@ -7,16 +7,7 @@
     "choose_one_file": "You need to choose one file!",
     "invalid_type_file": "Your file type is not valid. Please choose another",
     "duplicated_viewpoint_name": "Viewpoint name is duplicated",
-    "duplicated_function_name": "Function name is duplicated",
-    "user_name_is_required": "Name of user is required!",
-    "user_name_trim_space": "Name of user cannot contain leading and trailing white spaces",
-    "user_name_can_not_contains_special_characters": "Name of user can not contain special characters",
-    "user_name_max_length": "Name of user has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters",
-    "phone_is_required": "Phone is required!",
-    "phone_trim_space": "Phone cannot contain leading and trailing white spaces",
-    "phone_can_not_contains_special_characters": "Phone can not contain special characters",
-    "phone_max_length": "Phone has maximum length of 10 characters",
-    "phone_only_contain_number": "Phone only contain number!"
+    "duplicated_function_name": "Function name is duplicated"
   },
 
   "login": {

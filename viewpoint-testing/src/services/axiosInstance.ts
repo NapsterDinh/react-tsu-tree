@@ -1,3 +1,5 @@
+import { ERR_CANCELED_RECEIVE_RESPONSE } from "@utils/constants";
+import { showErrorNotification } from "@utils/notificationUtils";
 import axios, { AxiosRequestConfig } from "axios";
 
 const customAxios = (contentType) => {
@@ -48,38 +50,55 @@ const customAxios = (contentType) => {
       return response.data;
     },
     async (error) => {
-      const { status } = error.response;
-      switch (status) {
-        case 400:
-          return Promise.reject(error?.response?.data);
-        case 404:
-          return Promise.reject(error?.response?.data);
-        case 401:
-          localStorage.removeItem("token");
-          localStorage.removeItem("expiration");
-          localStorage.removeItem("user");
-          window.location.href = "/login";
-          break;
-        case 403:
-          // TODO: Define what to do on 403
-          // showErrorNotification("Forbidden !");
-          // window.location.href = "/forbidden";
-          return Promise.reject(error);
-        case 408:
-          // TODO: Define what to do on 408
-          break;
-        case 404:
-          break;
-        case 500:
-          return Promise.reject({
-            code: "ServerError",
-          });
-        case 500:
-          return Promise.reject({
-            code: "ServerTimeOut",
-          });
-        default:
-          return;
+      if (!error?.code) {
+        return Promise.reject({
+          ...error,
+          code: "UndefinedError",
+        });
+      }
+      if (error.code === ERR_CANCELED_RECEIVE_RESPONSE) {
+        return Promise.reject(error);
+      } else {
+        const { status } = error.response;
+        switch (status) {
+          case 400:
+            // TODO: Define what to do on 400
+            if (
+              error?.response?.data?.errors?.length !== 0 &&
+              error?.response?.data?.errors?.[0]?.code
+            ) {
+              const responseError = error?.response?.data?.errors?.[0];
+              return Promise.reject(responseError);
+            } else {
+              showErrorNotification(error.message);
+              return Promise.reject(error);
+            }
+          case 401:
+            localStorage.removeItem("token");
+            localStorage.removeItem("expiration");
+            window.location.href = "/login";
+            break;
+          case 403:
+            // TODO: Define what to do on 403
+            // showErrorNotification("Forbidden !");
+            // window.location.href = "/forbidden";
+            break;
+          case 408:
+            // TODO: Define what to do on 408
+            break;
+          case 404:
+            break;
+          case 500:
+            return Promise.reject({
+              code: "ServerError",
+            });
+          case 500:
+            return Promise.reject({
+              code: "ServerTimeOut",
+            });
+          default:
+            return;
+        }
       }
     }
   );
