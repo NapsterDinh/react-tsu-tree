@@ -1,0 +1,104 @@
+{
+  "common": {
+    "please_select_domain": "Please select a domain",
+    "name_can_not_contains_special_characters": "Tên không thể chưa ký tự đặc biệt",
+    "search_can_not_contains_special_characters": "Nội dung tìm kiếm không thể chứa ký tự đặc biệt",
+    "choose_one_file": "Tối thiểu chọn 1 file!",
+    "invalid_type_file": "File không tồn tại. Vui lòng chọn một file khác"
+  },
+
+  "login": {
+    "username_required": "Tên đăng nhập là trường bắt buộc",
+    "username_can_not_contains_special_characters": "Tên đăng nhập không thể chứa ký tự đặc biệt",
+    "password_is_required": "Mật khẩu là trường bắt buộc"
+  },
+
+  "role_management": {
+    "name_is_required": "Tên quyền là trường bắt buộc!",
+    "name_min_length": "Tên quyền chứa tối thiểu {{MIN_LENGTH_INPUT}} ký tự",
+    "name_max_length": "Tên quyền chứa tối đa {{MAX_LENGTH_INPUT_NAME_FIELD}} ký tự",
+    "name_trim_space": "Tên quyền không thể chứa khoảng trắng ở đầu và cuối",
+    "name_can_not_contains_special_characters": "Tên quyền không chứa ký tự đặc biệt",
+    "description_is_required": "Vui lòng nhập mô tả cho quyền!",
+    "description_max_length": "Role description has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "description_trim_space": "Role description can not contains leading and trailing white spaces",
+    "description_can_not_contains_special_characters": "Role description can not contains special characters",
+    "permission_required": "Permission is required!"
+  },
+
+  "domain_management": {
+    "name_is_required": "Domain name is required",
+    "name_min_length": "Domain name has minimum length of {{MIN_LENGTH_INPUT}} characters",
+    "name_max_length": "Domain name has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters",
+    "name_trim_space": "Domain name can not contains leading and trailing white spaces!",
+    "name_can_not_contains_special_characters": "Domain name can not contains special characters",
+    "description_max_length": "Domain description has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "description_trim_space": "Domain description can not contains leading and trailing white spaces",
+    "description_can_not_contains_special_characters": "Domain description can not contains special characters"
+  },
+
+  "request_management": {
+    "type_request_is_require": "Type of request is required!",
+    "description_is_required": "Please enter description for the request!",
+    "description_max_length": "Request description has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "description_min_length": "Request description has minimum length of {{MIN_LENGTH_INPUT}} characters",
+    "description_trim_space": "Request description cannot contain leading and trailing white spaces",
+    "approver_is_required": "Approver is required!",
+    "from_file_required": "From file is required!",
+    "merge_into_file_required": "Merge into file is required!",
+    "merge_into_trim_space": "Merge into file cannot contain leading and trailing white spaces",
+    "merge_into_can_not_contain_special_character": "Merge into file not contains special characters!",
+    "merge_into_max_length": "Merge into file name has maximum length of {{MAX_LENGTH_INPUT}} characters",
+    "title_is_required": "Title is required!",
+    "title_trim_space": "Title can not contains leading and trailing white spaces!",
+    "title_not_contains_special_characters": "Title can not contains special characters!",
+    "title_min_length": "Title has minimum length of {{MIN_LENGTH_INPUT}}",
+    "title_max_length": "Title has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters"
+  },
+
+  "viewpoint_collection": {
+    "name_is_required": "Viewpoint collection name is required",
+    "name_trim_space": "Viewpoint collection name cannot contain leading and trailing white spaces",
+    "name_can_not_contains_special_characters": "Viewpoint collection name can not contains special characters",
+    "name_max_length": "Viewpoint collection name has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters",
+    "name_is_invalid": "Viewpoint collection is invalid",
+    "description_is_required": "Please enter description for the viewpoint collection!",
+    "description_max_length": "Viewpoint collection description has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "description_trim_space": "Viewpoint collection description cannot contain leading and trailing white spaces",
+    "description_can_not_contains_special_characters": "Role description can not contains special characters"
+  },
+
+  "detail_viewpoint_collection": {
+    "name_is_required": "Viewpoint name is required!",
+    "name_max_length": "Viewpoint name has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters",
+    "name_trim_space": "Viewpoint name cannot contain leading and trailing white spaces",
+    "name_can_not_contains_special_characters": "Viewpoint name can not contains special characters",
+    "confirmation_max_length": "Confirmation has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "confirmation_trim_space": "Confirmation cannot contain leading and trailing white spaces",
+    "example_max_length": "Example has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "example_trim_space": "Example cannot contain leading and trailing white spaces",
+    "note_max_length": "Note has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "note_trim_space": "Note can not contain leading and trailing white spaces"
+  },
+
+  "product": {
+    "name_is_required": "Product name is required!",
+    "name_max_length": "Product name has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters",
+    "name_min_length": "Product name has minimum length of {{MIN_LENGTH_INPUT}} characters",
+    "name_trim_space": "Domain name can not contains leading and trailing white spaces!",
+    "name_can_not_contains_special_characters": "Product name can not contains special characters",
+    "description_is_required": "Please enter description for the product",
+    "description_max_length": "Product description has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "description_trim_space": "Product description cannot contain leading and trailing white spaces",
+    "description_can_not_contains_special_characters": "Product description can not contains special characters"
+  },
+
+  "detail_product": {
+    "function_name_is_required": "Function name is required",
+    "function_name_trim_space": "Function name can not contains leading and trailing white spaces",
+    "function_name_max_length": "Function name has maximum length of {{MAX_LENGTH_INPUT_NAME_FIELD}} characters",
+    "function_name_can_not_contains_special_characters": "Function name can not contains special characters",
+    "note_max_length": "Note has maximum length of {{MAX_LENGTH_TEXT_AREA}} characters",
+    "note_trim_space": "Note can not contain leading and trailing white spaces"
+  }
+}

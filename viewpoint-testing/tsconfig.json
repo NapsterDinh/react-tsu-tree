@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": false,
+    "resolveJsonModule": true,
+    "baseUrl": "src/",
+    "paths": {
+      "@assets": ["assets"],
+      "@assets/*": ["assets/*"],
+
+      "@components": ["components"],
+      "@components/*": ["components/*"],
+
+      "@context": ["context"],
+      "@context/*": ["context/*"],
+
+      "@hooks": ["hooks"],
+      "@hooks/*": ["hooks/*"],
+
+      "@layouts": ["layouts"],
+      "@layouts/*": ["layouts/*"],
+
+      "@pages": ["pages"],
+      "@pages/*": ["pages/*"],
+
+      "@redux": ["redux"],
+      "@redux/*": ["redux/*"],
+
+      "@routers": ["routers"],
+      "@routers/*": ["routers/*"],
+
+      "@services": ["services"],
+      "@services/*": ["services/*"],
+
+      "@constants": ["constants"],
+      "@constants/*": ["constants/*"],
+
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
+      
+      "@models": ["models"],
+      "@models/*": ["models/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", ".fttemplates"]
+}

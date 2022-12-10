@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/a5fb3f42-48df-4a22-93a3-e5b0e3a72a19/AppServices/subscriptions/a5fb3f42-48df-4a22-93a3-e5b0e3a72a19/resourceGroups/RG-IVS-DEV/providers/Microsoft.Web/sites/akavip-dev",
+    "appService.deploySubpath": "."
+}

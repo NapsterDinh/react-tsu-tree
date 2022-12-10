@@ -1,0 +1,75 @@
+{
+  "name": "viewpoint",
+  "version": "0.1.0",
+  "private": true,
+  "cracoConfig": "craco.config.ts",
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@craco/craco": "^6.4.5",
+    "@reduxjs/toolkit": "^1.8.4",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.49",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "antd": "^4.22.6",
+    "axios": "^0.27.2",
+    "chart.js": "^4.0.1",
+    "i18next": "^21.9.1",
+    "i18next-browser-languagedetector": "^6.1.5",
+    "moment": "^2.29.4",
+    "rc-tree": "^5.7.1",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.0.1",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.36.1",
+    "react-i18next": "^11.18.4",
+    "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-saga": "^1.2.0",
+    "runtime-env-cra": "^0.2.4",
+    "styled-components": "^5.3.5",
+    "ts-jest": "^28.0.8",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && craco start",
+    "build": "cross-env NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && craco build",
+    "build:dev": "cross-env NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file=.env.dev && craco build",
+    "build:prod": "cross-env NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file=.env.prod && craco build",
+    "test": "craco test",
+    "eject": "craco eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.22.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.30.1",
+    "typescript": "^4.7.4"
+  }
+}

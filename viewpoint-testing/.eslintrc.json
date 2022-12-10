@@ -1,0 +1,27 @@
+{
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      },
+      "rules": {
+        "no-console": "warn",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "quotes": ["warn", "double"],
+        "jsx-quotes": ["warn", "prefer-double"],
+        "quote-props": ["warn", "consistent"],
+        "no-case-declarations": "off",
+        "@typescript-eslint/no-explicit-any": "off"
+      },
+      "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+      },
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    }
+  ]
+}

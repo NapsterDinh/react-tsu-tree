@@ -1,0 +1,264 @@
+:root {
+  /* Colors */
+  --clr-primary-1: rgb(36, 153, 239);
+  --clr-primary-2: hsl(314, 49%, 55%);
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-text: rgb(69, 90, 121);
+  --clr-text-second: rgb(95, 116, 141);
+  --clr-icon: hsl(248, 25%, 24%);
+  --clr-clone-btn: #2db7f5;
+  --clr-import-btn: #87d068;
+  --clr-export-btn: #1bb45c;
+  --clr-cancel-btn: #7a8793;
+  --clr-download-btn: #9254de;
+  --clr-publish-btn: #faad14;
+  --clr-info-btn: #eb2f96;
+
+  /* Hover */
+  --clr-background-icon-hover: rgb(217, 217, 217);
+  --clr-background-menu-hover: #f5f5f5;
+
+  /* Background */
+  --background-color: rgb(249, 249, 250);
+  --background-header-color: transparent;
+  --background-side-bar-color: #ffff;
+  --background-color-selected-sidebar: rgba(18, 31, 67, 0.04);
+  --background-login-form-color: hsl(0, 0%, 100%);
+  --background-icon: rgb(245, 245, 245);
+  --background-selected: rgb(214, 228, 255);
+  --background-hover-btn-icon: rgba(18, 31, 67, 0.04);
+  --background-icon-dark-mode: rgb(18, 31, 67);
+  --background-color-full-layout-dark-mode: rgb(243, 244, 249);
+  --background-color-element: rgb(255, 255, 255);
+  --background-color-modal: rgb(255, 255, 255);
+  --background-color-cancel-btn-hover: rgba(36, 153, 239, 0.04);
+  --background-color-selected-node-tree: rgba(18, 31, 67, 0.04);
+  --background-color-scrollbar: #c1c1c1;
+  --background-outline-button: #e5e5e5;
+
+  /* Border */
+  --border-color: rgb(240, 240, 240);
+  --border-radius-element: 0.25rem;
+  --border-radius-icon: 0.25rem;
+  --border-radius-list: 0.25rem;
+  --border-active: rgb(36, 153, 239);
+
+  /* Margin Main Layout */
+  --margin-main-layout: 10px 150px;
+
+  /* Screen size */
+  --min-width-pc-screen: 768px;
+  --max-width-pc-screen: 1280px;
+
+  --min-width-tablet-screen: 575px;
+  --max-width-tablet-screen: 767px;
+
+  --min-width-mobile-screen: 320px;
+  --max-width-mobile-screen: 576px;
+
+  /* Layout */
+  --padding-left-right-layout: 1rem;
+
+  /* Box shadow */
+  --box-shadow: -24px 24px 72px -8px rgb(145 158 171 / 24%);
+  --box-shadow-table: rgb(95 116 141 / 3%) 0px 2px 1px -1px,
+    rgb(95 116 141 / 4%) 0px 1px 1px 0px, rgb(95 116 141 / 8%) 0px 1px 3px 0px;
+  --box-shadow-element-wrapper: rgb(0 0 0 / 3%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 4%) 0px 1px 1px 0px, rgb(0 0 0 / 8%) 0px 1px 3px 0px;
+
+  --width-sidebar: 250px;
+  --width-sidebar-collapsed: 80px;
+
+  /* Font size */
+  --font-size-big-title: 1.25rem; /* 20px */
+  --font-size-p: 0.9375rem; /* 15px */
+  --font-size-span: 0.8125rem; /* 13px */
+  --font-size-icon-header: 1.5rem; /* 24px */
+  --font-size-icon-action-table: 1.1rem;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  /* Colors */
+  --clr-text: rgb(224, 224, 224);
+  --clr-text-second: rgb(140, 163, 186);
+  --clr-icon: rgb(255, 255, 255);
+
+  /* Hover */
+  --clr-background-icon-hover: rgb(140, 140, 140);
+  --clr-background-menu-hover: rgba(255, 255, 255, 0.08);
+
+  /* Border */
+  --border-color: rgba(255, 255, 255, 0.05);
+
+  /* Background */
+  --background-color: rgb(18, 18, 18);
+  --background-header-color: rgb(34, 43, 54);
+  --background-side-bar-color: rgb(34, 43, 54);
+  --background-color-selected-sidebar: rgba(36, 153, 239, 0.06);
+  --background-login-form-color: hsl(0, 0%, 7%);
+  --background-icon: rgb(18, 18, 18);
+  --background-selected: rgba(255, 255, 255, 0.05);
+  --background-icon-dark-mode: rgb(69, 90, 121);
+  --background-hover-btn-icon: rgba(255, 255, 255, 0.08);
+  --background-color-full-layout-dark-mode: rgb(23, 28, 36);
+  --background-color-element: rgb(34, 43, 54);
+  --background-color-modal: rgb(23, 28, 36);
+  --background-color-cancel-btn-hover: rgba(36, 153, 239, 0.08);
+  --background-color-selected-node-tree: rgba(255, 255, 255, 0.08);
+  --background-color-scrollbar: #d8d8d8;
+  --background-outline-button: #36424e;
+}
+
+#root {
+  height: 100%;
+}
+
+.fadeIn {
+  animation: 1s fadeIn forwards;
+}
+
+.fadeOut {
+  animation: 1s fadeOut forwards;
+}
+
+.error-message input,
+.error-message textarea {
+  border-color: #ff4d4f !important;
+}
+
+.color-text {
+  color: var(--clr-text) !important;
+}
+
+.label {
+  font-size: var(--font-size-span);
+  font-weight: 600;
+  color: var(--clr-text-second);
+}
+.error-search,
+.color-red {
+  color: #ff4d4f;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+.empty-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+  to {
+    transform: translate(-20px, 0);
+    opacity: 0;
+  }
+}
+html,
+body {
+  /* scroll-behavior: smooth; */
+  overflow-x: hidden;
+}
+
+/* body::-webkit-scrollbar-track {
+  background-color: var(--background-color-full-layout-dark-mode);
+}
+
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--background-color-scrollbar);
+} */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body.ant-scrolling-effect {
+  width: 100% !important;
+}
+
+.site-tree-search-value {
+  color: #f50;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Light.ttf");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Light.ttf");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Light.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-ExtraBold.ttf");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/font/Montserrat/static/Montserrat-Black.ttf");
+  font-weight: 900;
+}
